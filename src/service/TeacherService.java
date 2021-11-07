@@ -113,4 +113,16 @@ public class TeacherService {
     }
 
 
+    public  List<Teacher> getSalaryMoreThanAvgFullTeacher(){
+        double avgSalary=calculateAverageSalary();
+        teachers.stream().forEach(i -> i.calculateSalary());
+        return teachers.stream().filter(i -> i.getNetSalary() > avgSalary).collect(Collectors.toList());
+    }
+    public double calculateAverageSalary(){
+        teachers.forEach(i->i.calculateSalary());
+        double sumSalary=teachers.stream().filter(i->i.getType().equals(TeacherType.FULL_TIME))
+                .map(i->i.getNetSalary()).reduce(0D, (i, j) -> i + j);
+        long count=teachers.stream().filter(i->i.getType().equals(TeacherType.FULL_TIME)).count();
+        return sumSalary/count;
+    }
 }
