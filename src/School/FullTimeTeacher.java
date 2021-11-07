@@ -20,4 +20,10 @@ public class FullTimeTeacher extends Teacher {
     public void calculateSalary() {
         setNetSalary( baseSalary - super.calculateInsurance(baseSalary) - super.calculateTax(baseSalary));
     }
+    @Override
+    public String toString() {
+        return super.toString()+ "baseSalary=" + baseSalary +
+                '}';
+
+    }
 }
