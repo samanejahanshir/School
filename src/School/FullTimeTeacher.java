@@ -23,7 +23,7 @@ public class FullTimeTeacher extends Teacher {
     @Override
     public String toString() {
         return super.toString()+ "baseSalary=" + baseSalary +
-                '}';
+                '}'+'\n';
 
     }
 }

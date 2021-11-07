@@ -13,7 +13,7 @@ public abstract class Teacher {
     private String lastName;
     private String personalNumber;
     private Degree degree; //مدرک معلم
-    private Set<School> school;
+    private Set<School> school=new HashSet<>();
     private Integer experienceYear;
     private Set<Course> course = new HashSet<>();
     private Double netSalary;
@@ -172,7 +172,13 @@ public abstract class Teacher {
                 ", course=" + course +
                 ", netSalary=" + netSalary +
                 ", age=" + age +
-                ", type=" + type +
-                '}';
+                ", type=" + type ;
+
+    }
+    public boolean existSchoolByDegree(int degree){
+        if(school.stream().filter(i->i.getDegree()==degree).count()!=0){
+            return true;
+        }
+        return false;
     }
 }

@@ -37,6 +37,6 @@ public class PartTimeTeacher extends Teacher {
         return super.toString()+
                 "hourlySalary=" + hourlySalary +
                 ", hourPerMonth=" + hourPerMonth +
-                '}';
+                '}'+'\n';
     }
 }
