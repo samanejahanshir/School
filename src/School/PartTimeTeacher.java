@@ -27,8 +27,8 @@ public class PartTimeTeacher extends Teacher {
     }
 
     @Override
-    public Double calculateSalary() {
+    public void calculateSalary() {
         double baseSalary = hourlySalary * hourPerMonth;
-        return baseSalary - super.calculateInsurance(baseSalary) - super.calculateTax(baseSalary);
+        setNetSalary( baseSalary - super.calculateInsurance(baseSalary) - super.calculateTax(baseSalary));
     }
 }

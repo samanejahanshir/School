@@ -17,7 +17,7 @@ public class FullTimeTeacher extends Teacher {
     }
 
     @Override
-    public Double calculateSalary() {
-        return baseSalary - super.calculateInsurance(baseSalary) - super.calculateTax(baseSalary);
+    public void calculateSalary() {
+        setNetSalary( baseSalary - super.calculateInsurance(baseSalary) - super.calculateTax(baseSalary));
     }
 }

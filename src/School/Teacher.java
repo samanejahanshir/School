@@ -16,6 +16,7 @@ public abstract class Teacher {
     private Set<School> school;
     private Integer experienceYear;
     private Set<Course> course = new HashSet<>();
+    private Double netSalary;
     private int age;
     private TeacherType type;  // نوع معلم : تمام وقت و پاره وقت
 
@@ -97,7 +98,15 @@ public abstract class Teacher {
         this.type = type;
     }
 
-    public abstract Double calculateSalary();
+    public abstract void calculateSalary();
+
+    public Double getNetSalary() {
+        return netSalary;
+    }
+
+    public void setNetSalary(Double netSalary) {
+        this.netSalary = netSalary;
+    }
 
     protected final Double calculateTax(Double salary) {
 
@@ -133,5 +142,21 @@ public abstract class Teacher {
     @Override
     public int hashCode() {
         return Objects.hash(name, lastName, personalNumber);
+    }
+
+    public int searchSchool(School school) {
+        if (this.school.contains(school)) {
+            return 1;
+
+        } else
+            return -1;
+    }
+
+    public int searchCourse(Course course) {
+        if (this.course.contains(course)) {
+            return 1;
+
+        } else
+            return -1;
     }
 }
