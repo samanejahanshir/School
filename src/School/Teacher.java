@@ -159,4 +159,20 @@ public abstract class Teacher {
         } else
             return -1;
     }
+
+    @Override
+    public String toString() {
+        return "Teacher{" +
+                "name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", personalNumber='" + personalNumber + '\'' +
+                ", degree=" + degree +
+                ", school=" + school +
+                ", experienceYear=" + experienceYear +
+                ", course=" + course +
+                ", netSalary=" + netSalary +
+                ", age=" + age +
+                ", type=" + type +
+                '}';
+    }
 }
