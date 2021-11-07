@@ -136,5 +136,14 @@ public class TeacherService {
        }).filter(c->c.getCourse().size()>2).collect(Collectors.toList());
 
     }
+    public Set<School> getSchoolByListTeacher(){
+        Set<School> schools=new HashSet<>();
+        for(int i=0;i<teachers.size();i++) {
+             schools.addAll(teachers.stream().map(j -> j.getSchool()).collect(Collectors.toList()).get(i));
+        }
+        return schools;
+    }
+
+
 }
 
