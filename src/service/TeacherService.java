@@ -123,8 +123,18 @@ public class TeacherService {
         return sumSalary/count;
     }
 
-    public Map<TeacherType, List<Teacher>> listTeacherByDegree() {
+    public Map<TeacherType, List<Teacher>> listTeacherByExperienceYear() {
         return teachers.stream().filter(i->i.getExperienceYear()==10).collect(Collectors.groupingBy(i -> i.getType()));
+    }
+    public  List<Teacher> getPartTimeTeacherByDegree(){
+      return teachers.stream().filter(i->i.getDegree().equals(Degree.BS)).filter(i->{
+          if(i.getSchool().stream().filter(j->j.getDegree()==2)!=null){
+              return true;
+          }else
+              return false;
+
+       }).filter(c->c.getCourse().size()>2).collect(Collectors.toList());
+
     }
 }
 
