@@ -33,6 +33,40 @@ public class Main {
         teacherService.schools.add(school4);
         teacherService.schools.add(school5);
         /////////////////////////////////////////////////////////////////////////////////
+        System.out.println("----- addSchoolToTeacher -----");
+        System.out.println(teacherService.addSchoolToTeacher("234567",school1.getName()));
+        System.out.println(teacherService.addSchoolToTeacher("156785",school2.getName()));
+        System.out.println(teacherService.addSchoolToTeacher("234567",school3.getName()));
+        System.out.println(teacherService.addSchoolToTeacher("156785",school1.getName()));
+        System.out.println(teacherService.addSchoolToTeacher("290846",school2.getName()));
+        System.out.println();
+
+        System.out.println("----- addCourseToTeacher -----");
+        System.out.println(teacherService.addCourseToTeacher("234567",course1.getName()));
+        System.out.println(teacherService.addCourseToTeacher("234567",course2.getName()));
+        System.out.println(teacherService.addCourseToTeacher("234567",course3.getName()));
+        System.out.println();
+
+
+        System.out.println("----- getSalaryMoreThanAvgFullTeacher -----");
+        System.out.println(teacherService.getSalaryMoreThanAvgFullTeacher());
+        System.out.println();
+
+        System.out.println("----- listTeacherByExperienceYear -----");
+        System.out.println(teacherService.listTeacherByExperienceYear());
+        System.out.println();
+
+        System.out.println("----- getListTeacherOfSchool -----");
+        teacherService.getListTeacherOfSchool().forEach((i,j)-> System.out.println(i+" : "+j));
+        System.out.println();
+
+        System.out.println("----- getPartTimeTeacherByDegree -----");
+        System.out.println(teacherService.getPartTimeTeacherByDegree());
+        System.out.println();
+
+        System.out.println("----- getSchoolByListTeacher -----");
+        System.out.println(teacherService.getSchoolByListTeacher());
+
 
 
 
