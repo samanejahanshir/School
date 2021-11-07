@@ -143,7 +143,11 @@ public class TeacherService {
         }
         return schools;
     }
+public  Map<String,List<Teacher>> getListTeacherOfSchool(){
 
+  return   teachers.stream().collect(Collectors.groupingBy(i->i.getSchool().stream().map(j->j.getName()).toString()));
+
+}
 
 }
 
