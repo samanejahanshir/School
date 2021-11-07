@@ -8,10 +8,7 @@ import School.*;
 import School.enums.TeacherType;
 import School.exception.ItemExistException;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class TeacherService {
@@ -125,4 +122,9 @@ public class TeacherService {
         long count=teachers.stream().filter(i->i.getType().equals(TeacherType.FULL_TIME)).count();
         return sumSalary/count;
     }
+
+    public Map<TeacherType, List<Teacher>> listTeacherByDegree() {
+        return teachers.stream().filter(i->i.getExperienceYear()==10).collect(Collectors.groupingBy(i -> i.getType()));
+    }
 }
+
