@@ -94,7 +94,23 @@ public class TeacherService {
         } else
             return -1;
     }
+    public int addCourseToTeacher(String personalNum,String name){
+        Optional<Teacher> teacher=findByPersonalCode(personalNum);
+        Optional<Course> course=findCourseByName(name);
 
+        if (teacher.isPresent() && course.isPresent()) {
+            if(teacher.get().searchCourse(course.get())!=1){
+                Set<Course> courses=teacher.get().getCourse();
+                courses.add(course.get());
+                teacher.get().setCourse(courses);
+                return 1;
+            }else {
+                throw new ItemExistException("this course exist in teacher's list");
+            }
+
+        } else
+            return -1;
+    }
 
 
 }
