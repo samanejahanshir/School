@@ -64,6 +64,7 @@ public class TeacherService {
         return teachers.stream().filter(i -> i.getPersonalNumber().equalsIgnoreCase(personalCode)).findAny();
 
     }
+
     public Optional<School> findSchoolByName(String name) {
         return schools.stream().filter(i -> i.getName().equalsIgnoreCase(name)).findAny();
 
@@ -74,34 +75,35 @@ public class TeacherService {
 
     }
 
-    public int addSchoolToTeacher(String personalNum,String name){
-      Optional<Teacher> teacher=findByPersonalCode(personalNum);
-      Optional<School> school=findSchoolByName(name);
+    public int addSchoolToTeacher(String personalNum, String name) {
+        Optional<Teacher> teacher = findByPersonalCode(personalNum);
+        Optional<School> school = findSchoolByName(name);
 
         if (teacher.isPresent() && school.isPresent()) {
-            if(teacher.get().searchSchool(school.get())!=1){
-                Set<School> schools=teacher.get().getSchool();
+            if (teacher.get().searchSchool(school.get()) != 1) {
+                Set<School> schools = teacher.get().getSchool();
                 schools.add(school.get());
                 teacher.get().setSchool(schools);
                 return 1;
-            }else {
+            } else {
                 throw new ItemExistException("this school exist in teacher's list");
             }
 
         } else
             return -1;
     }
-    public int addCourseToTeacher(String personalNum,String name){
-        Optional<Teacher> teacher=findByPersonalCode(personalNum);
-        Optional<Course> course=findCourseByName(name);
+
+    public int addCourseToTeacher(String personalNum, String name) {
+        Optional<Teacher> teacher = findByPersonalCode(personalNum);
+        Optional<Course> course = findCourseByName(name);
 
         if (teacher.isPresent() && course.isPresent()) {
-            if(teacher.get().searchCourse(course.get())!=1){
-                Set<Course> courses=teacher.get().getCourse();
+            if (teacher.get().searchCourse(course.get()) != 1) {
+                Set<Course> courses = teacher.get().getCourse();
                 courses.add(course.get());
                 teacher.get().setCourse(courses);
                 return 1;
-            }else {
+            } else {
                 throw new ItemExistException("this course exist in teacher's list");
             }
 
@@ -110,44 +112,44 @@ public class TeacherService {
     }
 
 
-    public  List<Teacher> getSalaryMoreThanAvgFullTeacher(){
-        double avgSalary=calculateAverageSalary();
+    public List<Teacher> getSalaryMoreThanAvgFullTeacher() {
+        double avgSalary = calculateAverageSalary();
         teachers.stream().forEach(i -> i.calculateSalary());
         return teachers.stream().filter(i -> i.getNetSalary() > avgSalary).collect(Collectors.toList());
     }
-    public double calculateAverageSalary(){
-        teachers.forEach(i->i.calculateSalary());
-        double sumSalary=teachers.stream().filter(i->i.getType().equals(TeacherType.FULL_TIME))
-                .map(i->i.getNetSalary()).reduce(0D, (i, j) -> i + j);
-        long count=teachers.stream().filter(i->i.getType().equals(TeacherType.FULL_TIME)).count();
-        return sumSalary/count;
+
+    public double calculateAverageSalary() {
+        teachers.forEach(i -> i.calculateSalary());
+        double sumSalary = teachers.stream().filter(i -> i.getType().equals(TeacherType.FULL_TIME))
+                .map(i -> i.getNetSalary()).reduce(0D, (i, j) -> i + j);
+        long count = teachers.stream().filter(i -> i.getType().equals(TeacherType.FULL_TIME)).count();
+        return sumSalary / count;
     }
 
     public Map<TeacherType, List<Teacher>> listTeacherByExperienceYear() {
-        return teachers.stream().filter(i->i.getExperienceYear()==10).collect(Collectors.groupingBy(i -> i.getType()));
+        return teachers.stream().filter(i -> i.getExperienceYear() == 10).collect(Collectors.groupingBy(i -> i.getType()));
     }
-    public  List<Teacher> getPartTimeTeacherByDegree(){
-      return teachers.stream().filter(i->i.getDegree().equals(Degree.BS)).filter(i->{
-          if(i.getSchool().stream().filter(j->j.getDegree()==2)!=null){
-              return true;
-          }else
-              return false;
 
-       }).filter(c->c.getCourse().size()>2).collect(Collectors.toList());
+    public List<Teacher> getPartTimeTeacherByDegree() {
+        return teachers.stream().filter(i -> i.getDegree().equals(Degree.BS))
+                .filter(i -> i.existSchoolByDegree(2))
+                .filter(c -> c.getCourse().size() > 2).collect(Collectors.toList());
 
     }
-    public Set<School> getSchoolByListTeacher(){
-        Set<School> schools=new HashSet<>();
-        for(int i=0;i<teachers.size();i++) {
-             schools.addAll(teachers.stream().map(j -> j.getSchool()).collect(Collectors.toList()).get(i));
+
+    public Set<School> getSchoolByListTeacher() {
+        Set<School> schools = new HashSet<>();
+        for (int i = 0; i < teachers.size(); i++) {
+            schools.addAll(teachers.stream().map(j -> j.getSchool()).collect(Collectors.toList()).get(i));
         }
         return schools;
     }
-public  Map<String,List<Teacher>> getListTeacherOfSchool(){
 
-  return   teachers.stream().collect(Collectors.groupingBy(i->i.getSchool().stream().map(j->j.getName()).toString()));
+    public Map<String, List<Teacher>> getListTeacherOfSchool() {
 
-}
+        return teachers.stream().collect(Collectors.groupingBy(i -> i.getSchool().stream().map(j -> j.getName()).toString()));
+
+    }
 
 }
 
