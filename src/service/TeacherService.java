@@ -127,7 +127,8 @@ public class TeacherService {
     }
 
     public Map<TeacherType, List<Teacher>> listTeacherByExperienceYear() {
-        return teachers.stream().filter(i -> i.getExperienceYear() == 10).collect(Collectors.groupingBy(i -> i.getType()));
+        return teachers.stream().filter(i -> i.getExperienceYear() == 10)
+                 .collect(Collectors.groupingBy(i -> i.getType()));
     }
 
     public List<Teacher> getPartTimeTeacherByDegree() {
@@ -137,19 +138,29 @@ public class TeacherService {
 
     }
 
-    public Set<School> getSchoolByListTeacher() {
+    public Set<String> getNameSchoolsByListTeacher() {
         Set<School> schools = new HashSet<>();
+        Set<String> schoolsName=new HashSet<>();
         for (int i = 0; i < teachers.size(); i++) {
-            schools.addAll(teachers.stream().map(j -> j.getSchool()).collect(Collectors.toList()).get(i));
+            schools.addAll(teachers.stream().map(j -> j.getSchool())
+                    .collect(Collectors.toList()).get(i));
         }
-        return schools;
+        schoolsName.addAll(schools.stream().map(i->i.getName()).collect(Collectors.toList()));
+        return schoolsName;
     }
 
     public Map<String, List<Teacher>> getListTeacherOfSchool() {
 
-        return teachers.stream().collect(Collectors.groupingBy(i -> i.getSchool().stream().map(j -> j.getName()).toString()));
-
+       /* return teachers.stream().collect(Collectors
+                .groupingBy(i -> i.getSchool().stream().map(j -> j.getName()).toString()));
+*/Map<String, List<Teacher>> mapSchoolTeachers=new TreeMap<>();
+        for (School school : schools) {
+           List<Teacher> teachersList= teachers.stream().filter(i->i.getSchool().contains(school)).collect(Collectors.toList());
+            mapSchoolTeachers.put(school.getName(),teachersList);
+        }
+        return mapSchoolTeachers;
     }
+
 
 }
 
