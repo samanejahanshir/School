@@ -1,4 +1,4 @@
-package School;
+package models;
 
 public class FullTimeTeacher extends Teacher {
     private double baseSalary;

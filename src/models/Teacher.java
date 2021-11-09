@@ -1,4 +1,4 @@
-package School;
+package models;
 
 import School.enums.Degree;
 import School.enums.TeacherType;

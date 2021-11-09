@@ -1,10 +1,7 @@
 package service;
 
-import School.Course;
-import School.School;
-import School.Teacher;
+import models.*;
 import School.enums.Degree;
-import School.*;
 import School.enums.TeacherType;
 import School.exception.ItemExistException;
 

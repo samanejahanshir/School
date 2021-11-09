@@ -1,8 +1,8 @@
 package School.main;
 
 
-import School.Course;
-import School.School;
+import models.Course;
+import models.School;
 import service.TeacherService;
 
 public class Main {

@@ -1,4 +1,4 @@
-package School;
+package models;
 
 public class PartTimeTeacher extends Teacher {
     private int hourlySalary;
