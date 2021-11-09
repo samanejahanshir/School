@@ -31,7 +31,7 @@ public class PartTimeTeacher extends Teacher {
         double baseSalary = hourlySalary * hourPerMonth;
         setNetSalary( baseSalary - super.calculateInsurance(baseSalary) - super.calculateTax(baseSalary));
     }
-
+//متد toString وجود نداشت اضافه شد
     @Override
     public String toString() {
         return super.toString()+

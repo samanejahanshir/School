@@ -26,7 +26,8 @@ public class School {
     public void setDegree(int degree) {
         this.degree = degree;
     }
-
+//متد های hash و equal اضافه شد چون از set استفاده شده است برای نگهداری لیست مدارس
+    //و set برای مفایسه به این دو نیاز دارد تا اشیا تکراری در لیست قرار ندهد.
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -39,7 +40,7 @@ public class School {
     public int hashCode() {
         return Objects.hash(name, degree);
     }
-
+//متد toString اضافه شد برای نمایش شی school
     @Override
     public String toString() {
         return "School{" +

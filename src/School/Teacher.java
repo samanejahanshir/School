@@ -13,7 +13,7 @@ public abstract class Teacher {
     private String lastName;
     private String personalNumber;
     private Degree degree; //مدرک معلم
-    private Set<School> school=new HashSet<>();
+    private Set<School> school=new HashSet<>();// این property ایجاد (new) نشده بود و اضافه شد.
     private Integer experienceYear;
     private Set<Course> course = new HashSet<>();
     private Double netSalary;
@@ -143,7 +143,7 @@ public abstract class Teacher {
     public int hashCode() {
         return Objects.hash(name, lastName, personalNumber);
     }
-
+//این متد برای جستجو در لیست مدارس یک معلم ایجاد شده است
     public int searchSchool(School school) {
         if (this.school.contains(school)) {
             return 1;
@@ -151,6 +151,7 @@ public abstract class Teacher {
         } else
             return -1;
     }
+// این متد برای جستجو در لیست درس های یک معلم ایجاد شده است
 
     public int searchCourse(Course course) {
         if (this.course.contains(course)) {
@@ -175,6 +176,7 @@ public abstract class Teacher {
                 ", type=" + type ;
 
     }
+    //برای برگرداندن درجه کیفی مدرسه موجود در لیست معلم
     public boolean existSchoolByDegree(int degree){
         if(school.stream().filter(i->i.getDegree()==degree).count()!=0){
             return true;

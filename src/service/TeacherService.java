@@ -66,12 +66,12 @@ public class TeacherService {
     }
 
     public Optional<School> findSchoolByName(String name) {
-        return schools.stream().filter(i -> i.getName().equalsIgnoreCase(name)).findAny();
+        return schools.stream().filter(school -> school.getName().equalsIgnoreCase(name)).findAny();
 
     }
 
     public Optional<Course> findCourseByName(String name) {
-        return courses.stream().filter(i -> i.getName().equalsIgnoreCase(name)).findAny();
+        return courses.stream().filter(course -> course.getName().equalsIgnoreCase(name)).findAny();
 
     }
 
@@ -127,14 +127,14 @@ public class TeacherService {
     }
 
     public Map<TeacherType, List<Teacher>> listTeacherByExperienceYear() {
-        return teachers.stream().filter(i -> i.getExperienceYear() == 10)
+        return teachers.stream().filter(teacher -> teacher.getExperienceYear() == 10)
                  .collect(Collectors.groupingBy(i -> i.getType()));
     }
 
     public List<Teacher> getPartTimeTeacherByDegree() {
-        return teachers.stream().filter(i -> i.getDegree().equals(Degree.BS))
-                .filter(i -> i.existSchoolByDegree(2))
-                .filter(c -> c.getCourse().size() > 2).collect(Collectors.toList());
+        return teachers.stream().filter(teacher -> teacher.getDegree().equals(Degree.BS))
+                .filter(teacher -> teacher.existSchoolByDegree(2))
+                .filter(teacher -> teacher.getCourse().size() > 2).collect(Collectors.toList());
 
     }
 
@@ -142,10 +142,10 @@ public class TeacherService {
         Set<School> schools = new HashSet<>();
         Set<String> schoolsName=new HashSet<>();
         for (int i = 0; i < teachers.size(); i++) {
-            schools.addAll(teachers.stream().map(j -> j.getSchool())
+            schools.addAll(teachers.stream().map(teacher -> teacher.getSchool())
                     .collect(Collectors.toList()).get(i));
         }
-        schoolsName.addAll(schools.stream().map(i->i.getName()).collect(Collectors.toList()));
+        schoolsName.addAll(schools.stream().map(school->school.getName()).collect(Collectors.toList()));
         return schoolsName;
     }
 
@@ -155,7 +155,7 @@ public class TeacherService {
                 .groupingBy(i -> i.getSchool().stream().map(j -> j.getName()).toString()));
 */Map<String, List<Teacher>> mapSchoolTeachers=new TreeMap<>();
         for (School school : schools) {
-           List<Teacher> teachersList= teachers.stream().filter(i->i.getSchool().contains(school)).collect(Collectors.toList());
+           List<Teacher> teachersList= teachers.stream().filter(teacher->teacher.getSchool().contains(school)).collect(Collectors.toList());
             mapSchoolTeachers.put(school.getName(),teachersList);
         }
         return mapSchoolTeachers;
